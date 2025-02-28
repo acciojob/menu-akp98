@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const MENU_DATA = [
   {
@@ -77,32 +76,37 @@ const MENU_DATA = [
 ];
 
 const Menu = () => {
-  const [list, setlist] = useState(MENU_DATA);
+  const [list, setList] = useState(MENU_DATA);
 
   const onFilter = (category) => {
     if (category === "all") {
-      setlist(MENU_DATA);
+      setList(MENU_DATA);
     } else {
       const matches = MENU_DATA.filter((i) => i.category === category);
-
-      setlist(matches);
+      setList(matches);
     }
   };
+
+  // Adding useEffect to ensure the component is mounted
+  useEffect(() => {
+    setList(MENU_DATA);
+  }, []);
+
   return (
     <div id="main">
       <h1>Our Menu</h1>
 
       <div>
-        <button id="filter-btn-0" onClick={() => onFilter("all")}>
+        <button data-testid="filter-btn-all" onClick={() => onFilter("all")}>
           All
         </button>
-        <button id="filter-btn-1" onClick={() => onFilter("breakfast")}>
+        <button data-testid="filter-btn-breakfast" onClick={() => onFilter("breakfast")}>
           Breakfast
         </button>
-        <button id="filter-btn-2" onClick={() => onFilter("lunch")}>
+        <button data-testid="filter-btn-lunch" onClick={() => onFilter("lunch")}>
           Lunch
         </button>
-        <button id="filter-btn-3" onClick={() => onFilter("shakes")}>
+        <button data-testid="filter-btn-shakes" onClick={() => onFilter("shakes")}>
           Shakes
         </button>
       </div>
